@@ -1,3 +1,5 @@
+import './style.css'
+
 const rows = 16;
 const cols = 16;
 
@@ -31,12 +33,12 @@ function resetGrids() {
  * Copy nextGrid to grid, and reset nextGrid
  */
 function copyAndResetGrid() {
-    for(var i=0; i<rows; i++){
-		for(var j=0; j<cols; j++){
-			grid[i][j] = nextGrid[i][j];
-			nextGrid[i][j] = 0;
-		}
-	}
+    for (var i = 0; i < rows; i++) {
+        for (var j = 0; j < cols; j++) {
+            grid[i][j] = nextGrid[i][j];
+            nextGrid[i][j] = 0;
+        }
+    }
 }
 
 // initilize game of life
@@ -53,23 +55,23 @@ function createTable() {
     }
     const table = document.createElement("table");
 
-    for(let row = 0; row < rows; row++) {
+    for (let row = 0; row < rows; row++) {
         const tr = document.createElement("tr");
         for (let col = 0; col < cols; col++) {
             const cell = document.createElement("td");
             cell.setAttribute("id", row + "_" + col)
             cell.setAttribute("class", "dead");
-            cell.onclick = function() {
+            cell.onclick = function () {
                 let rowCol = this.id.split("_");
                 let row = rowCol[0];
                 let col = rowCol[1];
 
                 const classes = this.getAttribute("class");
                 if (classes.indexOf("live") > -1) {
-                    this.setAttribute("class","dead");
+                    this.setAttribute("class", "dead");
                     grid[row][col] = 0;
                 } else {
-                    this.setAttribute("class","live");
+                    this.setAttribute("class", "live");
                     grid[row][col] = 1;
                 }
             };
@@ -83,14 +85,14 @@ function createTable() {
 function updateView() {
     grid.forEach((row, i) => {
         row.forEach((col, j) => {
-            const cell = document.getElementById(i +"_"+ j);
+            const cell = document.getElementById(i + "_" + j);
             if (col === 0) {
                 cell.setAttribute("class", "dead");
             } else {
                 cell.setAttribute("class", "live");
             }
         });
-    }); 
+    });
 }
 
 function setUpControlButtons() {
@@ -191,31 +193,31 @@ function applyRules(row, col) {
  */
 function countNeighbors(row, col) {
     let count = 0;
-	if (row-1 >= 0) {							//top left
-		if (grid[row-1][col] == 1) {count++;}
-	}
-	if (row-1 >= 0 && col-1 >= 0) {				//top
-		if (grid[row-1][col-1] == 1){count++;}
-	} 
-	if (row-1 >= 0 && col+1 < cols) {			//top right
-		if (grid[row-1][col+1] == 1){count++;}
-	} 
-	if (col-1 >= 0) {							//left
-		if (grid[row][col-1] == 1){count++;}
-	} 
-	if (col+1 < cols) {							//right
-		if (grid[row][col+1] == 1) {count++;}
-	} 
-	if (row+1 < rows) {							//bottom
-		if (grid[row+1][col] == 1){count++;}
-	} 
-	if (row+1 < rows && col-1 >= 0) {
-		if (grid[row+1][col-1] == 1) {count++;}
-	} 
-	if (row+1 < rows && col+1 < cols) {			//bottom right
-		if (grid[row+1][col+1] == 1) {count++;}
-	} 
-	return count;
+    if (row - 1 >= 0) {							//top left
+        if (grid[row - 1][col] == 1) { count++; }
+    }
+    if (row - 1 >= 0 && col - 1 >= 0) {				//top
+        if (grid[row - 1][col - 1] == 1) { count++; }
+    }
+    if (row - 1 >= 0 && col + 1 < cols) {			//top right
+        if (grid[row - 1][col + 1] == 1) { count++; }
+    }
+    if (col - 1 >= 0) {							//left
+        if (grid[row][col - 1] == 1) { count++; }
+    }
+    if (col + 1 < cols) {							//right
+        if (grid[row][col + 1] == 1) { count++; }
+    }
+    if (row + 1 < rows) {							//bottom
+        if (grid[row + 1][col] == 1) { count++; }
+    }
+    if (row + 1 < rows && col - 1 >= 0) {
+        if (grid[row + 1][col - 1] == 1) { count++; }
+    }
+    if (row + 1 < rows && col + 1 < cols) {			//bottom right
+        if (grid[row + 1][col + 1] == 1) { count++; }
+    }
+    return count;
 }
 
 window.onload = initilize;
